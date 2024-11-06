@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturing Equipment Order</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form id="manufacturingEquipmentOrder" class="form-container">
+        <div class="form-header">
+            MANUFACTURING EQUIPMENT ORDER
+        </div>
+        <div class="form-grid">
+            <div class="row row-1">
+                <div class="cell text-bold">
+                    EQUIPMENT NOMENCLATURE
+                    <input type="text" name="EQUIPMENT_NOMENCLATURE" maxlength="200">
+                </div>
+                <div class="cell text-bold">
+                    MESci CONTROL POINT/PIS
+                    <input type="text" name="MESCI_CONTROL_POINT" maxlength="100">
+                </div>
+                <div class="cell">
+                    <div class="text-bold">
+                        MODEL NO.
+                        <select name="MODEL_NO" class="model-no" style="font-size: large;">
+                            <option value="other">other</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="09">09</option>
+                            <option value="30">30</option>
+                        </select>
+                    </div>
+                    <div class="text-bold">
+                        USAGE CODE
+                        <input type="text" name="USAGE_CODE" maxlength="50">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-2">
+                <div class="cell text-bold">
+                    EFFECTIVITY (PROGRAM/CUM)
+                    <textarea name="EFFECTIVITY" maxlength="200"></textarea>
+                </div>
+                <div class="cell text-bold">
+                    AUTHORITY/REMARKS
+                    <textarea name="AUTHORITY_REMARKS" maxlength="500"></textarea>
+                </div>
+                <div class="cell">
+                    <div class="subcell text-bold">
+                        SHOP USE DATE
+                        <input type="date" name="SHOP_USE_DATE">
+                    </div>
+                    <div class="subcell text-bold">
+                        USING DEPT
+                        <input type="text" name="USING_DEPT" maxlength="50">
+                    </div>
+                    <div class="subcell text-bold">
+                        CONTRACT NO / OFFLOAD AUTH NO.
+                        <input type="text" name="CONTRACT_NO" maxlength="100">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-3">
+                <div class="cell">
+                    <div class="text-bold">BUSINESS ACTIVITY CATEGORY</div>
+                    <div class="dropdown-hint">(type custom text or click ▼ to select from list)</div>
+                </div>
+            </div>
+            <div class="row row-4">
+                <div class="cell">
+                    <div class="combobox-wrapper">
+                        <input type="text" id="businessActivity" name="BUSINESS_ACTIVITY_CATEGORY" class="combobox-input" placeholder="OTHER: (M.E. to enter text)" maxlength="500">
+                        <button type="button" class="dropdown-button" onclick="toggleDropdown()">▼</button>
+                        <div id="dropdownList" class="dropdown-list">
+                            <div class="dropdown-item" onclick="selectOption('Improve reliability or required to avoid obsolescence issue')">Improve reliability or required to avoid obsolescence issue</div>
+                            <div class="dropdown-item" onclick="selectOption('Manufacturing Quality Improvement')">Manufacturing Quality Improvement</div>
+                            <div class="dropdown-item" onclick="selectOption('Duplicate build for rate increase or to replace non-functional equipment')">Duplicate build for rate increase or to replace non-functional equipment</div>
+                            <div class="dropdown-item" onclick="selectOption('Changes to checkout drawings')">Changes to checkout drawings</div>
+                            <div class="dropdown-item" onclick="selectOption('New Aircraft Function')">New Aircraft Function</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="equipment-grid">
+            <div class="grid-cell text-bold">
+                EQUIPMENT NUMBER
+                <textarea name="EQUIPMENT_NUMBER" maxlength="100"></textarea>
+            </div>
+            <div class="grid-cell text-bold">
+                SERIAL NO.
+                <textarea name="SERIAL_NO" maxlength="100"></textarea>
+            </div>
+            <div class="grid-cell text-bold">
+                QTY
+                <input type="number" name="QUANTITY" min="0" style="text-align: center; font-size:larger">
+            </div>
+            <div class="grid-cell">
+                <div class="text-bold">EQUIPMENT CLASSIFICATION</div>
+                <div class="checkbox-grid">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="ste-govt" name="EQUIPMENT_CLASSIFICATION" value="STE - Gov't owned">
+                        <label for="ste-govt">STE - Gov't owned</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="capital" name="EQUIPMENT_CLASSIFICATION" value="Capital Eqpt">
+                        <label for="capital">Capital Eqpt</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="ste-boeing" name="EQUIPMENT_CLASSIFICATION" value="STE - Boeing owned">
+                        <label for="ste-boeing">STE - Boeing owned</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="material" name="EQUIPMENT_CLASSIFICATION" value="Material">
+                        <label for="material">Material</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="authority" name="EQUIPMENT_CLASSIFICATION" value="Authority Furnished">
+                        <label for="authority">Authority Furnished</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="agency" name="EQUIPMENT_CLASSIFICATION" value="Agency Peculiar">
+                        <label for="agency">Agency Peculiar</label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell text-bold">
+                PROPERTY/CONTROL NO.
+                <textarea name="PROPERTY_CONTROL_NO" maxlength="100"></textarea>
+            </div>
+        </div>
+
+        <div class="dept-header">
+            TO BE COMPLETED BY DEPT KX1G ONLY
+        </div>
+
+        <div class="dept-grid" style="text-align: center;">
+            <div class="grid-cell text-bold" >
+                SEQUENCE NO.
+                <input type="text" name="SEQUENCE_NO" maxlength="50" style="text-align: center; font-size:medium">
+            </div>
+            <div class="grid-cell text-bold">
+                MOD NO.
+                <input type="text" name="MOD_NO" maxlength="50" style="text-align: center; font-size:large">
+            </div>
+            <div class="grid-cell text-bold">
+                CAL REQD
+                <select name="CALIBRATION_REQUIRED" style="font-size: large;">
+                    <option value="YES">Yes</option>
+                    <option value="NO">No</option>
+                </select>
+            </div>
+            <div class="hours-section">
+                <div class="hours-cell text-bold">
+                    DESIGN HOURS
+                    <input type="number" name="DESIGN_HOURS" min="0" style="text-align: center; font-size:larger">
+                </div>
+                <div class="hours-cell text-bold">
+                    FAB HOURS
+                    <input type="number" name="FAB_HOURS" min="0" style="text-align: center; font-size:larger">
+                </div>
+                <div class="hours-cell text-bold">
+                    EST MAT'L COST
+                    <input type="number" name="EST_MATERIAL_COST" min="0" style="text-align: center; font-size:larger">
+                </div>
+                <div class="hours-cell text-bold">
+                    SELL DATE
+                    <input type="date" name="SELL_DATE" style="text-align: center; font-size:larger">
+                </div>
+            </div>
+
+            <div class="labor-section">
+                <div class="labor-header">LABOR ACTIVITY ID</div>
+                <div class="labor-item">
+                    <div class="left-section">
+                        <div class="section-row">
+                            <span class="title-text">ENGINEERING:</span>
+                        </div>
+                        <div class="section-row">
+                            <span class="status-text">CLASS STATUS:</span>
+                        </div>
+                    </div>
+                    <div class="right-section">
+                        <div class="section-row"></div>
+                        <div class="section-row">
+                            <select name="ENGINEERING_STATUS" style="font-size: medium;">
+                                <option value="open">Open</option>
+                                <option value="not-listen">Not listen in class</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="labor-item">
+                    <div class="left-section">
+                        <div class="section-row">
+                            <span class="title-text">MATERIAL:</span>
+                        </div>
+                        <div class="section-row">
+                            <span class="status-text">CLASS STATUS:</span>
+                        </div>
+                    </div>
+                    <div class="right-section">
+                        <div class="section-row"></div>
+                        <div class="section-row">
+                            <select name="MATERIAL_STATUS" style="font-size: medium;">
+                                <option value="open">Open</option>
+                                <option value="not-listen">Not listen in class</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="labor-item">
+                    <div class="left-section">
+                        <div class="section-row">
+                            <span class="title-text">FABRICATION:</span>
+                        </div>
+                        <div class="section-row">
+                            <span class="status-text">CLASS STATUS:</span>
+                        </div>
+                    </div>
+                    <div class="right-section">
+                        <div class="section-row"></div>
+                        <div class="section-row">
+                            <select name="FABRICATION_STATUS" style="font-size: medium;">
+                                <option value="open">Open</option>
+                                <option value="not-listen">Not listen in class</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dept-notes text-bold" style="text-align:left;">
+                DEPT KX1G NOTES
+                <textarea name="DEPT_NOTES" maxlength="4000"></textarea>
+            </div>
+        </div>
+
+        <!-- The rest of the HTML remains the same, just wrap it inside the form tag -->
+        <table class="instructions-table">
+            <thead>
+                <tr>
+                    <th class="dept-cell">DEPT</th>
+                    <th class="comp-cell">COMP BY</th>
+                    <th class="date-cell">DATE COMP</th>
+                    <th>INSTRUCTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><textarea name="dept_1" maxlength="5" rows="1" readonly>KX1G</textarea></td>
+                    <td><textarea name="comp_by_1" maxlength="5" rows="1"readonly>ENG</textarea></td>
+                    <td><textarea name="date_comp_1" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_1" rows="1" maxlength="200" readonly>1. Provide equipment to support…</textarea></td>
+                </tr>
+                
+                <tr class="empty-row">
+                    <td><textarea name="dept_2" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_2" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_2" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_2" rows="1" maxlength="200"></textarea></td>
+                </tr>
+                
+                <tr class="empty-row">
+                    <td><textarea name="dept_3" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_3" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_3" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_3" rows="1" maxlength="200"></textarea></td>
+                </tr>
+                
+                <tr class="empty-row">
+                    <td><textarea name="dept_4" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_4" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_4" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_4" rows="1" maxlength="200" readonly>2. Design new, modify, or create same as…</textarea></td>
+                </tr>
+                
+                <tr class="empty-row">
+                    <td><textarea name="dept_5" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_5" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_5" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_5" rows="1" maxlength="200"></textarea></td>
+                </tr>
+                
+                <tr class="empty-row">
+                    <td><textarea name="dept_6" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_6" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_6" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_6" rows="1" maxlength="200"></textarea></td>
+                </tr>
+                
+                <tr class="empty-row">
+                    <td><textarea name="dept_7" maxlength="5" rows="1" readonly>KX1G</textarea></td>
+                    <td><textarea name="comp_by_7" maxlength="5" rows="1" readonly>FAB</textarea></td>
+                    <td><textarea name="date_comp_7" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_7" rows="1" maxlength="200" readonly>1. Fabricate per engineering dwg/models & work instructions, and complete per OV process.</textarea></td>
+                </tr>
+                
+                <tr class="empty-row">
+                    <td><textarea name="dept_8" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_8" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_8" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_8" rows="1" maxlength="200" readonly>2. Deliver to PC crib supporting using department.</textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_9" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_9" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_9" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_9" rows="1" maxlength="200" readonly>3. If calibration is required before delivery, coordinate with Property Mgt to get Asset ID assigned.</textarea></td>
+                </tr>
+
+                <tr class="empty-row">
+                    <td><textarea name="dept_10" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_10" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_10" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_10" rows="1" maxlength="200"></textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_11" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_11" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_11" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_11" rows="1" maxlength="200"></textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_12" maxlength="5" rows="1" readonly>MD01</textarea></td>
+                    <td><textarea name="comp_by_12" maxlength="5" rows="1" readonly>PMA</textarea></td>
+                    <td><textarea name="date_comp_12" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_12" rows="1" maxlength="200" readonly>If calibration is required, affix property number.</textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_13" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_13" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_13" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_13" rows="1" maxlength="200"></textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_14" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_14" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_14" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_14" rows="1" maxlength="200"></textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_15" maxlength="5" rows="1" readonly>LB8S</textarea></td>
+                    <td><textarea name="comp_by_15" maxlength="5" rows="1" readonly>CAL</textarea></td>
+                    <td><textarea name="date_comp_15" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_15" rows="1" maxlength="200" readonly>If required, calibrate and record.</textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_16" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_16" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_16" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_16" rows="1" maxlength="200"></textarea></td>
+                </tr>
+                
+                
+                <tr>
+                    <td><textarea name="dept_17" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_17" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_17" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_17" rows="1" maxlength="200"></textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_18" maxlength="5" rows="1" readonly>KX1G</textarea></td>
+                    <td><textarea name="comp_by_18" maxlength="5" rows="1" readonly>ENG</textarea></td>
+                    <td><textarea name="date_comp_18" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_18" rows="1" maxlength="200" readonly>If required, notify MEO Requester when equipment returns from Cal Lab.</textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_19" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_19" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_19" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_19" rows="1" maxlength="200"></textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_20" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_20" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_20" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_20" rows="1" maxlength="200"></textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_21" maxlength="5" rows="1" readonly>KX1G</textarea></td>
+                    <td><textarea name="comp_by_21" maxlength="5" rows="1" readonly>ADMIN</textarea></td>
+                    <td><textarea name="date_comp_21" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_21" rows="1" maxlength="200" readonly>Log signatures, then upload Electronic Green Sheet and select equipment classification for Property</textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_22" maxlength="5" rows="1" ></textarea></td>
+                    <td><textarea name="comp_by_22" maxlength="5" rows="1" ></textarea></td>
+                    <td><textarea name="date_comp_22" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_22" rows="1" maxlength="200" ></textarea></td>
+                </tr>
+                
+                <tr>
+                    <td><textarea name="dept_23" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="comp_by_23" maxlength="5" rows="1"></textarea></td>
+                    <td><textarea name="date_comp_23" maxlength="12" rows="1"></textarea></td>
+                    <td><textarea name="instructions_23" rows="1" maxlength="200" readonly>This will automatically send email to STE Engrs, STE Mgr, Property Mgt, and MEO requester.  </textarea></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <section class="form-section">
+            
+            <label for="equipment-received">Equipment Received By & Date:</label>
+            <input type="text" id="equipment-received" name="equipment-received" maxlength="100">
+        </section>
+
+        <div class="footer-container">
+            <table class="signature-table">
+                <thead>
+                    <tr>
+                        <th class="signature-header">Signature Block</th>
+                        <th class="signature-header">Name</th>
+                        <th class="signature-header">Date</th>
+                        <th class="signature-header">BEMS ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="signature-row" style="align-items:baseline">
+                        <td>MEO Requester</td>
+                        <td><textarea maxlength="15"></textarea></td>
+                        <td><input type="date"></td>
+                        <td><textarea maxlength="15"></textarea></td>
+                    </tr>
+                    <tr class="signature-row">
+                        <td>STE Mgmt Approval</td>
+                        <td><textarea maxlength="15"></textarea></td>
+                        <td><input type="date"></td>
+                        <td><textarea maxlength="15"></textarea></td>
+                    </tr>
+                    <tr class="signature-row">
+                        <td>STE Administrator</td>
+                        <td><textarea maxlength="15"></textarea></td>
+                        <td><input type="date"></td>
+                        <td><textarea maxlength="15"></textarea></td>
+                    </tr>
+                    <tr class="signature-row">
+                        <td>Property Administrator</td>
+                        <td><textarea maxlength="15"></textarea></td>
+                        <td><input type="date"></td>
+                        <td><textarea maxlength="15"></textarea></td>
+                    </tr>
+                    <tr class="signature-row">
+                        <td>MEO Approval</td>
+                        <td><textarea maxlength="15"></textarea></td>
+                        <td><input type="date"></td>
+                        <td><textarea maxlength="15"></textarea></td>
+                    </tr>
+                    <tr class="signature-row">
+                        <td>Date Distributed</td>
+                        <td><textarea maxlength="15"></textarea></td>
+                        <td><input type="date"></td>
+                        <td><textarea maxlength="15"></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="right-section">
+                <a href="http://mte.web.boeing.com/index.html" style="display: block; margin-bottom: 10px;">STE Homepage</a>
+                <img 
+                    src="./logo.png?height=212&width=283" 
+                    alt="Manufacturing Test Engineering Logo" 
+                    style="width: 283px; height: 212px; margin: 10px 0;"
+                >
+                <p><a href="https://insite.web.boeing.com/culture/displayBluesInfo.do?bemsid=315674">STE Administrator Contact Information</a></p>
+            </div>
+            
+            <div class="mac-number">
+                MAC3168MEO Rev (07 AUG 2024)
+            </div>
+        </div>
+
+
+        <section class="form-section">
+            <button type="submit" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; width: 100%;">
+                Submit Form
+            </button>
+        </section>
+    </form>
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdownList');
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        }
+    
+        function selectOption(value) {
+            document.getElementById('businessActivity').value = value;
+            document.getElementById('dropdownList').style.display = 'none';
+        }
+    
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('dropdownList');
+            const button = document.querySelector('.dropdown-button');
+            if (!button.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('dropdownList').style.display = 'none';
+
+            // Add form submission handler
+            document.getElementById('manufacturingEquipmentOrder').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Here you can add code to collect form data and send it to your database
+                console.log('Form submitted');
+            });
+        });
+
+        document.getElementById('manufacturingEquipmentOrder').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            const orderData = {};
+            
+            formData.forEach((value, key) => {
+                orderData[key] = value;
+            });
+        
+            // Convert date strings to proper format
+            orderData.SHOP_USE_DATE = new Date(orderData.SHOP_USE_DATE).toISOString();
+            orderData.SELL_DATE = new Date(orderData.SELL_DATE).toISOString();
+        
+            // Convert number fields
+            orderData.QUANTITY = parseInt(orderData.QUANTITY);
+            orderData.DESIGN_HOURS = parseInt(orderData.DESIGN_HOURS);
+            orderData.FAB_HOURS = parseInt(orderData.FAB_HOURS);
+            orderData.EST_MATERIAL_COST = parseFloat(orderData.EST_MATERIAL_COST);
+        
+            fetch('https://localhost:5001/submit-order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(orderData),
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Order submitted successfully!');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('An error occurred while submitting the order.');
+            });
+        });
+    </script>
+</body>
+</html>

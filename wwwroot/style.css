@@ -1,0 +1,508 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --border-color: #000;
+    --yellow-bg: #ffff00;
+    --orange-bg: #ffa500;
+    --gray-bg: #d3d3d3;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    border: 1px solid #000;
+}
+
+.form-header {
+    text-align: center;
+    padding: 15px 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-top: 1px solid #000;
+}
+
+.row {
+    display: grid;
+    min-height: 40px;
+}
+
+.row-1 {
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.row-2 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.row-3, .row-4 {
+    grid-template-columns: 1fr;
+}        .cell {
+    padding: 8px;
+    border: 1px solid #000;
+    background-color: #ffff00;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.dropdown-hint {
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.equipment-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 0.8fr 2fr 1.2fr;
+    background-color: #FFA500;
+    border-bottom: 1px solid #000;
+}
+
+.grid-cell {
+    padding: 8px;
+    border-right: 1px solid #000;
+    min-height: 80px;
+}
+
+.grid-cell:last-child {
+    border-right: none;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    padding-top: 4px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+
+.dept-header {
+    background-color: #FFFFFF;
+    padding: 8px;
+    font-weight: bold;
+    border-bottom: 1px solid #000;
+}
+
+.dept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr 2fr;
+    grid-template-areas: 
+        "seq mod cal hours labor"
+        "notes notes notes hours labor"
+        "notes notes notes hours labor";
+    background-color: #CCCCCC;
+    gap: 0;
+}
+
+
+.labor-section {
+    grid-area: labor;
+    background-color: #FFCC99;
+    display: flex;
+    flex-direction: column;
+}
+
+.labor-header {
+    background-color: #000;
+    color: #FFF;
+    padding: 8px;
+    text-align: center;
+}
+
+.labor-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid #000;
+}
+
+.left-section, .right-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.left-section {
+    padding-top: 10px;
+    border-right: 1px solid #000;
+}
+
+.right-section {
+    background-color: #CCCCCC;
+}
+
+.section-row {
+    padding: 8px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.section-row:first-child {
+    border-bottom: 1px dashed #000;
+}
+
+.section-row select {
+    width: 100%;
+    margin: 0;
+    height: 25px;
+}
+
+.title-text {
+    font-weight: bold;
+}
+
+.status-text {
+    font-style: italic;
+}        .hours-section {
+    grid-area: hours;
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    border-right: 1px solid #000;
+}
+
+.hours-cell {
+    padding: 8px;
+    border-bottom: 1px solid #000;
+    min-height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dept-notes {
+    grid-area: notes;
+    background-color: #CCCCCC;
+    padding: 8px;
+    border: 1px solid #000;
+    border-top: none;
+    min-height: 80px;
+}
+
+.instructions-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.instructions-table th,
+.instructions-table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.instructions-table th {
+    font-weight: bold;
+    background-color: #FFFFFF;
+}
+
+.dept-cell { width: 80px; }
+.comp-cell { width: 100px; }
+.date-cell { width: 120px; }
+.empty-row td { height: 40px; }
+
+.form-section {
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    width: 100%;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    height: 70%;
+    min-height: 30px;
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: 4px 0;
+    
+}
+select {
+    text-align: center;
+    
+}
+
+.cell {
+    
+    padding: 8px;
+    border: 1px solid #000;
+    background-color: #ffff00;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+.grid-cell {
+    padding: 8px;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+.hours-cell {
+    padding: 8px;
+    border-bottom: 1px solid #000;
+    min-height: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+.signature-table td {
+    padding: 8px;
+    height: 50px; 
+}
+
+.signature-table input {
+    height: 100%;
+}
+
+
+.dept-notes input {
+    height: calc(100% - 24px); 
+    margin-top: 4px;
+}
+
+
+.instructions-table td {
+    padding: 4px;
+    height: 40px;
+}
+
+.instructions-table input {
+    height: 100%;
+}
+
+
+.subcell {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+.labor-item .section-row select,
+.labor-item .section-row input {
+    height: 100%;
+    min-height: 30px;
+}
+
+.footer-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.signature-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.signature-table th,
+.signature-table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+
+.signature-header {
+    background-color: #ffff00;
+    font-weight: bold;
+}
+
+.signature-row td {
+    height: 35px;
+}
+
+.right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.mac-number {
+    grid-column: 1 / -1;
+    border-top: 1px solid #000;
+    padding-top: 10px;
+    font-size: 0.9em;
+    padding-left: 9px;
+}
+
+
+.row-1 .cell:last-child {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+    gap: 0;
+}
+
+.row-1 .cell:last-child > div {
+    padding: 8px;
+    border-left: 1px solid #000;
+}
+
+.row-2 .cell:last-child {
+    display: grid;
+    grid-template-areas: 
+        "shop using"
+        "contract contract";
+    gap: 0;
+    padding: 0;
+}
+
+.row-2 .cell:last-child .subcell:nth-child(1) {
+    grid-area: shop;
+    border-right: 1px solid #000;
+}
+
+.row-2 .cell:last-child .subcell:nth-child(2) {
+    grid-area: using;
+}
+
+.row-2 .cell:last-child .subcell:nth-child(3) {
+    grid-area: contract;
+    border-top: 1px solid #000;
+}
+.combobox-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.combobox-input {
+    width: calc(100% - 25px);
+    height: 25px;
+    padding: 0 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.dropdown-button {
+    position: absolute;
+    right: 0;
+    width: 25px; 
+    height: 25px; 
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 0;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-top: 2px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+/* For form-grid elements */
+.form-grid input,
+.form-grid textarea,
+.form-grid .model-no {
+    background-color: #FFFF00;
+}
+
+/* For equipment-grid elements */
+.equipment-grid input,
+.equipment-grid textarea {
+    background-color: #FFA500;
+}
+
+/* For dept-grid elements */
+.dept-grid input,
+.dept-grid select,
+.dept-grid textarea {
+    background-color: #CCCCCC;
+}
+textarea, input, select {
+    outline: none;
+    resize: none;
+}
+
+.form-grid textarea, .form-grid input, .form-grid select {
+    border-color: #FFFF00;
+}
+
+.equipment-grid textarea, .equipment-grid input, .equipment-grid select {
+    border-color: #FFA500;
+}
+
+.dept-grid textarea, .dept-grid input, .dept-grid select {
+    border-color: #CCCCCC;
+}
+.instructions-table textarea{
+    border-color: white;
+}
+.form-section textarea{
+    border-color: white;
+}
+.footer-container textarea{
+    border-color: white;
+}
