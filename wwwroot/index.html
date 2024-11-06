@@ -521,39 +521,79 @@
 
         document.getElementById('manufacturingEquipmentOrder').addEventListener('submit', function(event) {
             event.preventDefault();
+            console.log('Form submitted');
             
-            const formData = new FormData(this);
-            const orderData = {};
+            // Get equipment classification from checkboxes
+            const equipmentClassificationCheckboxes = document.querySelectorAll('input[name="EQUIPMENT_CLASSIFICATION"]:checked');
+            const equipmentClassification = Array.from(equipmentClassificationCheckboxes).map(cb => cb.value).join(', ');
             
-            formData.forEach((value, key) => {
-                orderData[key] = value;
-            });
+            // Create order data object matching the C# model
+            const orderData = {
+                EQUIPMENT_NOMENCLATURE: document.querySelector('[name="EQUIPMENT_NOMENCLATURE"]').value || '',
+                MESCI_CONTROL_POINT: document.querySelector('[name="MESCI_CONTROL_POINT"]').value || '',
+                MODEL_NO: document.querySelector('[name="MODEL_NO"]').value || '',
+                USAGE_CODE: document.querySelector('[name="USAGE_CODE"]').value || '',
+                EFFECTIVITY: document.querySelector('[name="EFFECTIVITY"]').value || '',
+                AUTHORITY_REMARKS: document.querySelector('[name="AUTHORITY_REMARKS"]').value || '',
+                USING_DEPT: document.querySelector('[name="USING_DEPT"]').value || '',
+                CONTRACT_NO: document.querySelector('[name="CONTRACT_NO"]').value || '',
+                BUSINESS_ACTIVITY_CATEGORY: document.querySelector('[name="BUSINESS_ACTIVITY_CATEGORY"]').value || '',
+                EQUIPMENT_NUMBER: document.querySelector('[name="EQUIPMENT_NUMBER"]').value || '',
+                SERIAL_NO: document.querySelector('[name="SERIAL_NO"]').value || '',
+                EQUIPMENT_CLASSIFICATION: equipmentClassification || '',
+                PROPERTY_CONTROL_NO: document.querySelector('[name="PROPERTY_CONTROL_NO"]').value || '',
+                SEQUENCE_NO: document.querySelector('[name="SEQUENCE_NO"]').value || '',
+                MOD_NO: document.querySelector('[name="MOD_NO"]').value || '',
+                CALIBRATION_REQUIRED: document.querySelector('[name="CALIBRATION_REQUIRED"]').value || '',
+                ENGINEERING_STATUS: document.querySelector('[name="ENGINEERING_STATUS"]').value || '',
+                MATERIAL_STATUS: document.querySelector('[name="MATERIAL_STATUS"]').value || '',
+                FABRICATION_STATUS: document.querySelector('[name="FABRICATION_STATUS"]').value || '',
+                DEPT_NOTES: document.querySelector('[name="DEPT_NOTES"]').value || '',
+                
+                // Handle dates with default values
+                SHOP_USE_DATE: document.querySelector('[name="SHOP_USE_DATE"]').value 
+                    ? new Date(document.querySelector('[name="SHOP_USE_DATE"]').value).toISOString()
+                    : new Date().toISOString(),
+                SELL_DATE: document.querySelector('[name="SELL_DATE"]').value
+                    ? new Date(document.querySelector('[name="SELL_DATE"]').value).toISOString()
+                    : new Date().toISOString(),
+                
+                // Handle numeric fields with default values
+                QUANTITY: parseInt(document.querySelector('[name="QUANTITY"]').value) || 0,
+                DESIGN_HOURS: parseInt(document.querySelector('[name="DESIGN_HOURS"]').value) || 0,
+                FAB_HOURS: parseInt(document.querySelector('[name="FAB_HOURS"]').value) || 0,
+                EST_MATERIAL_COST: parseFloat(document.querySelector('[name="EST_MATERIAL_COST"]').value) || 0.0
+            };
         
-            // Convert date strings to proper format
-            orderData.SHOP_USE_DATE = new Date(orderData.SHOP_USE_DATE).toISOString();
-            orderData.SELL_DATE = new Date(orderData.SELL_DATE).toISOString();
+            // Log the data being sent for debugging
+            console.log('Sending data:', orderData);
         
-            // Convert number fields
-            orderData.QUANTITY = parseInt(orderData.QUANTITY);
-            orderData.DESIGN_HOURS = parseInt(orderData.DESIGN_HOURS);
-            orderData.FAB_HOURS = parseInt(orderData.FAB_HOURS);
-            orderData.EST_MATERIAL_COST = parseFloat(orderData.EST_MATERIAL_COST);
-        
-            fetch('https://localhost:5001/submit-order', {
+            fetch('http://localhost:5011/api/EquipmentOrder', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(orderData),
+                body: JSON.stringify(orderData)
             })
-            .then(response => response.text())
+            .then(response => {
+                if (!response.ok) {
+                    // Log the error response for debugging
+                    return response.text().then(text => {
+                        console.error('Server response:', text);
+                        throw new Error('Server response: ' + text);
+                    });
+                }
+                return response.text();
+            })
             .then(data => {
                 console.log('Success:', data);
                 alert('Order submitted successfully!');
+                // Optionally reset the form
+                // this.reset();
             })
             .catch((error) => {
                 console.error('Error:', error);
-                alert('An error occurred while submitting the order.');
+                alert('An error occurred while submitting the order: ' + error.message);
             });
         });
     </script>
