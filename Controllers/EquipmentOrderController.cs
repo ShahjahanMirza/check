@@ -18,8 +18,20 @@ namespace ManufacturingEquipmentOrderProject.Controllers
         [HttpPost]
         public IActionResult SubmitOrder([FromBody] EquipmentOrder order)
         {
-            _databaseService.SaveEquipmentOrder(order);
-            return Ok("Order saved successfully");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                _databaseService.SaveEquipmentOrder(order);
+                return Ok("Order saved successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }
